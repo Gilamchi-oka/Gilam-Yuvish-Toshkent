@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="uz" data-lang="uz">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>GilamYuvish Toshkent | Tez va Sifatli</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+/* ===================== RESET ===================== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;background:#f5f7ff;color:#0d1b3e;overflow-x:hidden;}
+a{text-decoration:none;color:inherit;}
+ul{list-style:none;}
+
+/* ===================== VARIABLES ===================== */
+:root{
+  --blue:#1565C0;
+  --blue2:#1E88E5;
+  --yellow:#FFC107;
+  --yellow2:#FF8F00;
+  --dark:#0d1b3e;
+  --light:#f5f7ff;
+  --white:#fff;
+  --gray:#6b7280;
+  --border:#dde3f0;
+  --r:14px;
+  --sh:0 4px 24px rgba(21,101,192,.10);
+  --sh2:0 8px 40px rgba(21,101,192,.18);
+}
+
+/* ===================== INTRO SCREEN ===================== */
+#intro{
+  position:fixed;inset:0;
+  background:#0d1b3e;
+  z-index:9999;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  transition:opacity .7s ease, transform .7s ease;
+}
+#intro.hide{opacity:0;transform:scale(1.05);pointer-events:none;}
+
+.intro-logo{
+  font-family:'Sora',sans-serif;font-size:clamp(28px,6vw,48px);font-weight:800;color:#fff;
+  opacity:0;transform:translateY(20px);
+  animation:slideUp .7s ease .2s forwards;
+}
+.intro-logo span{color:#FFC107;}
+
+.intro-sub{
+  font-size:clamp(11px,2vw,14px);color:rgba(255,255,255,.45);
+  letter-spacing:1.5px;text-transform:uppercase;
+  margin-top:10px;
+  opacity:0;animation:slideUp .5s ease .8s forwards;
+}
+
+.intro-bar-wrap{
+  width:220px;height:3px;background:rgba(255,255,255,.1);
+  border-radius:3px;margin-top:28px;overflow:hidden;
+}
+.intro-bar{
+  height:100%;width:0;
+  background:linear-gradient(90deg,#1565C0,#FFC107);
+  border-radius:3px;
+  animation:barFill 1.8s ease 1.1s forwards;
+}
+@keyframes barFill{to{width:100%;}}
+
+.intro-pills{
+  display:flex;gap:10px;margin-top:28px;flex-wrap:wrap;justify-content:center;padding:0 20px;
+  opacity:0;animation:slideUp .5s ease 1.8s forwards;
+}
+.intro-pill{
+  display:flex;align-items:center;gap:6px;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:40px;padding:7px 16px;
+  font-size:12px;color:rgba(255,255,255,.75);
+  font-family:'Sora',sans-serif;font-weight:600;
+}
+.intro-pill i{color:#FFC107;}
+
+.intro-counter{
+  margin-top:40px;
+  font-family:'Sora',sans-serif;font-size:clamp(40px,8vw,72px);font-weight:800;
+  color:transparent;
+  background:linear-gradient(135deg,#1565C0,#FFC107);
+  -webkit-background-clip:text;background-clip:text;
+  opacity:0;animation:slideUp .5s ease 2.3s forwards;
+}
+.intro-counter-lbl{
+  font-size:13px;color:rgba(255,255,255,.4);text-align:center;
+  opacity:0;animation:slideUp .4s ease 2.5s forwards;
+}
+
+/* ===================== KEYFRAMES ===================== */
+@keyframes slideUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+@keyframes slideLeft{from{opacity:0;transform:translateX(-40px);}to{opacity:1;transform:translateX(0);}}
+@keyframes slideRight{from{opacity:0;transform:translateX(40px);}to{opacity:1;transform:translateX(0);}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+@keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+@keyframes bounceIn{0%{transform:scale(0);opacity:0;}60%{transform:scale(1.15);}100%{transform:scale(1);opacity:1;}}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(21,101,192,.4);}70%{box-shadow:0 0 0 12px rgba(21,101,192,0);}}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+@keyframes shimmer{0%{background-position:-200% center;}100%{background-position:200% center;}}
+@keyframes countUp{from{opacity:0;}to{opacity:1;}}
+@keyframes waveAnim{0%,100%{transform:scaleY(1);}50%{transform:scaleY(1.8);}}
+@keyframes spin{to{transform:rotate(360deg);}}
+@keyframes starPop{0%{transform:scale(0) rotate(-20deg);opacity:0;}70%{transform:scale(1.2) rotate(5deg);}100%{transform:scale(1) rotate(0);opacity:1;}}
+
+/* ---- scroll-reveal base ---- */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.from-left{transform:translateX(-50px);}
+.reveal.from-right{transform:translateX(50px);}
+.reveal.visible{opacity:1;transform:translate(0,0);}
+
+/* ===================== NAVBAR ===================== */
+#header{
+  position:fixed;top:0;left:0;width:100%;z-index:1000;
+  background:rgba(255,255,255,.95);backdrop-filter:blur(12px);
+  box-shadow:0 2px 20px rgba(0,0,0,.06);
+  transition:all .3s;
+}
+.nav-inner{
+  max-width:1160px;margin:0 auto;padding:0 20px;
+  display:flex;align-items:center;justify-content:space-between;height:68px;
+}
+.logo{
+  font-family:'Sora',sans-serif;font-size:20px;font-weight:800;color:var(--blue);
+  display:flex;align-items:center;gap:10px;
+}
+.logo-icon{
+  width:40px;height:40px;background:var(--blue);border-radius:10px;
+  display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;
+  animation:float 3s ease-in-out infinite;
+}
+.logo span{color:var(--yellow2);}
+
+.nav-links{display:flex;gap:24px;}
+.nav-links a{font-size:.88rem;font-weight:600;color:var(--dark);transition:color .2s;}
+.nav-links a:hover{color:var(--blue);}
+
+.nav-right{display:flex;align-items:center;gap:12px;}
+.nav-phone{
+  display:flex;align-items:center;gap:6px;
+  font-weight:700;font-size:.85rem;color:var(--blue);
+}
+.lang-sw{
+  display:flex;gap:3px;background:var(--light);
+  border-radius:40px;padding:3px;
+}
+.lang-btn{
+  padding:5px 12px;border-radius:40px;
+  font-size:.75rem;font-weight:700;font-family:'Sora',sans-serif;
+  cursor:pointer;border:none;background:transparent;color:var(--gray);
+  transition:all .2s;
+}
+.lang-btn.active{background:var(--blue);color:#fff;}
+
+.btn{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:11px 22px;border-radius:40px;
+  font-family:'Sora',sans-serif;font-size:.8rem;font-weight:700;
+  cursor:pointer;border:none;
+  transition:transform .2s,box-shadow .2s;
+}
+.btn:hover{transform:translateY(-2px);box-shadow:var(--sh2);}
+.btn-primary{background:var(--blue);color:#fff;}
+.btn-accent{background:var(--yellow);color:var(--dark);}
+.btn-outline{background:transparent;border:2px solid #fff;color:#fff;}
+
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.hamburger span{display:block;width:24px;height:2px;background:var(--dark);border-radius:3px;transition:all .3s;}
+.mobile-nav{display:none;flex-direction:column;background:#fff;padding:14px 20px 18px;border-top:1px solid var(--border);gap:10px;}
+.mobile-nav.open{display:flex;}
+.mobile-nav a{font-weight:600;color:var(--dark);padding:7px 0;border-bottom:1px solid var(--border);}
+
+/* ===================== HERO ===================== */
+#hero{
+  position:relative;
+  min-height:100vh;
+  padding-top:68px;
+  display:flex;align-items:center;
+  overflow:hidden;
+}
+
+/* Video BG */
+.hero-video-wrap{
+  position:absolute;inset:0;z-index:0;
+}
+.hero-video-wrap video{
+  width:100%;height:100%;object-fit:cover;
+}
+.hero-video-wrap::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(110deg,rgba(10,20,60,.90) 0%,rgba(10,20,60,.75) 55%,rgba(21,101,192,.55) 100%);
+}
+/* Fallback image if video fails */
+.hero-video-wrap{
+  background:linear-gradient(135deg,#0d1b3e 0%,#1a3a6b 60%,#1565C0 100%);
+}
+
+.hero-inner{
+  position:relative;z-index:2;
+  max-width:1160px;margin:0 auto;padding:80px 20px;
+  display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;
+}
+
+.hero-badge{
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(255,193,7,.16);border:1px solid rgba(255,193,7,.45);
+  color:#FFD54F;font-size:.75rem;font-weight:700;
+  padding:6px 16px;border-radius:40px;margin-bottom:20px;
+  font-family:'Sora',sans-serif;
+  opacity:0;animation:slideLeft .6s ease 3.5s forwards;
+}
+.hero-title{
+  font-family:'Sora',sans-serif;
+  font-size:clamp(2rem,4.5vw,3.2rem);font-weight:800;
+  color:#fff;line-height:1.12;margin-bottom:18px;
+}
+.hero-title .line1{
+  display:block;opacity:0;
+  animation:slideLeft .6s ease 3.7s forwards;
+}
+.hero-title .line2{
+  display:block;color:#FFC107;opacity:0;
+  animation:slideLeft .6s ease 3.9s forwards;
+}
+.hero-title .line3{
+  display:block;opacity:0;
+  animation:slideLeft .6s ease 4.1s forwards;
+}
+.hero-desc{
+  color:rgba(255,255,255,.75);font-size:.97rem;line-height:1.75;
+  max-width:480px;margin-bottom:30px;
+  opacity:0;animation:slideLeft .6s ease 4.3s forwards;
+}
+.hero-btns{
+  display:flex;gap:12px;flex-wrap:wrap;margin-bottom:42px;
+  opacity:0;animation:slideLeft .6s ease 4.5s forwards;
+}
+.hero-stats{
+  display:flex;gap:32px;flex-wrap:wrap;
+  padding-top:28px;border-top:1px solid rgba(255,255,255,.12);
+  opacity:0;animation:slideLeft .6s ease 4.7s forwards;
+}
+.stat-num{
+  font-family:'Sora',sans-serif;font-size:1.8rem;font-weight:800;
+  color:#FFC107;line-height:1;
+}
+.stat-lbl{font-size:.75rem;color:rgba(255,255,255,.5);margin-top:4px;}
+
+/* Hero card */
+.hero-card{
+  background:rgba(255,255,255,.09);
+  backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:24px;padding:36px 32px;
+  opacity:0;animation:slideRight .7s ease 4.2s forwards;
+}
+.hero-card-title{
+  font-family:'Sora',sans-serif;font-size:1rem;
+  color:#fff;margin-bottom:20px;font-weight:700;
+}
+.price-list{display:flex;flex-direction:column;gap:10px;}
+.price-item{
+  display:flex;justify-content:space-between;align-items:center;
+  background:rgba(255,255,255,.07);border-radius:10px;
+  padding:12px 16px;border-left:3px solid #FFC107;
+  transition:transform .2s,background .2s;
+}
+.price-item:hover{transform:translateX(4px);background:rgba(255,255,255,.12);}
+.price-name{color:rgba(255,255,255,.9);font-size:.85rem;font-weight:600;}
+.price-val{color:#FFC107;font-family:'Sora',sans-serif;font-size:.85rem;font-weight:700;}
+
+/* ===================== TRUST BAR ===================== */
+.trust-bar{
+  background:#fff;padding:14px 20px;
+  border-bottom:1px solid var(--border);
+  display:flex;gap:8px;flex-wrap:wrap;align-items:center;
+  max-width:100%;overflow:hidden;
+}
+.trust-item{
+  display:flex;align-items:center;gap:6px;
+  font-size:.8rem;color:#4b5563;font-weight:600;
+  white-space:nowrap;
+}
+.trust-item i{color:var(--blue);font-size:.9rem;}
+.trust-sep{width:1px;height:18px;background:var(--border);flex-shrink:0;}
+
+/* ===================== UNIQUE SECTION — LIVE COUNTER ===================== */
+#live-counter{
+  background:linear-gradient(135deg,var(--dark) 0%,#1565C0 100%);
+  padding:60px 20px;
+  overflow:hidden;
+  position:relative;
+}
+.counter-particles{
+  position:absolute;inset:0;pointer-events:none;overflow:hidden;
+}
+.particle{
+  position:absolute;width:4px;height:4px;
+  background:#FFC107;border-radius:50%;opacity:0;
+}
+.counter-inner{
+  max-width:1160px;margin:0 auto;
+  display:grid;grid-template-columns:1fr 1.5fr;gap:60px;align-items:center;
+}
+.counter-left h2{
+  font-family:'Sora',sans-serif;
+  font-size:clamp(1.4rem,3vw,2rem);font-weight:800;
+  color:#fff;line-height:1.2;margin-bottom:12px;
+}
+.counter-left p{color:rgba(255,255,255,.6);font-size:.9rem;line-height:1.6;}
+
+.live-badge{
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(255,193,7,.15);border:1px solid rgba(255,193,7,.35);
+  color:#FFC107;font-size:.72rem;font-weight:700;
+  padding:5px 14px;border-radius:40px;margin-bottom:16px;
+}
+.live-dot{
+  width:7px;height:7px;background:#FFC107;border-radius:50%;
+  animation:pulse 1.5s ease infinite;
+}
+
+.counter-stats{display:flex;flex-direction:column;gap:16px;}
+.c-stat{
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);
+  border-radius:var(--r);padding:20px 24px;
+  display:flex;align-items:center;gap:20px;
+  transition:transform .2s,background .2s;
+}
+.c-stat:hover{transform:translateX(6px);background:rgba(255,255,255,.12);}
+.c-stat-icon{
+  width:48px;height:48px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.3rem;flex-shrink:0;
+}
+.c-stat-icon.y{background:rgba(255,193,7,.2);color:#FFC107;}
+.c-stat-icon.b{background:rgba(30,136,229,.25);color:#64B5F6;}
+.c-stat-icon.g{background:rgba(76,175,80,.2);color:#81C784;}
+.c-stat-num{
+  font-family:'Sora',sans-serif;font-size:1.8rem;font-weight:800;color:#fff;line-height:1;
+}
+.c-stat-lbl{font-size:.78rem;color:rgba(255,255,255,.5);margin-top:3px;}
+
+/* Wave animation */
+.wave-bars{
+  display:flex;align-items:flex-end;gap:3px;height:32px;margin-top:12px;
+}
+.wave-bar{
+  width:5px;background:rgba(255,193,7,.5);border-radius:3px;
+  animation:waveAnim .8s ease-in-out infinite;
+}
+
+/* ===================== WHY US ===================== */
+#why{padding:90px 0;background:#fff;}
+.container{max-width:1160px;margin:0 auto;padding:0 20px;}
+.section-title{
+  font-family:'Sora',sans-serif;
+  font-size:clamp(1.4rem,3vw,2.1rem);font-weight:800;
+  color:var(--dark);text-align:center;margin-bottom:10px;
+}
+.section-sub{text-align:center;color:var(--gray);font-size:.97rem;margin-bottom:48px;}
+
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px;}
+.why-card{
+  background:var(--light);border-radius:var(--r);padding:30px 22px;
+  text-align:center;border:1px solid var(--border);
+  transition:transform .25s,box-shadow .25s;
+  position:relative;overflow:hidden;
+}
+.why-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--blue),var(--yellow));
+  transform:scaleX(0);transform-origin:left;transition:transform .3s;
+}
+.why-card:hover{transform:translateY(-8px);box-shadow:var(--sh2);}
+.why-card:hover::before{transform:scaleX(1);}
+.why-icon{
+  width:58px;height:58px;background:var(--blue);border-radius:15px;
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:1.4rem;margin:0 auto 16px;
+  transition:transform .2s;
+}
+.why-card:hover .why-icon{transform:scale(1.1) rotate(-5deg);}
+.why-card h3{font-family:'Sora',sans-serif;font-size:.88rem;font-weight:700;margin-bottom:8px;}
+.why-card p{font-size:.83rem;color:var(--gray);line-height:1.6;}
+
+/* ===================== PRICES ===================== */
+#prices{padding:90px 0;background:var(--light);}
+.prices-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:22px;}
+.price-card{
+  background:#fff;border-radius:var(--r);padding:30px 22px;
+  text-align:center;box-shadow:var(--sh);
+  transition:transform .25s,box-shadow .25s;
+  position:relative;overflow:hidden;
+  cursor:pointer;
+}
+.price-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,var(--blue),var(--yellow));
+}
+.price-card:hover{transform:translateY(-8px);box-shadow:var(--sh2);}
+.price-card-icon{
+  font-size:2rem;margin-bottom:14px;
+  display:block;
+  transition:transform .3s;
+}
+.price-card:hover .price-card-icon{transform:scale(1.2) rotate(-5deg);}
+.price-card h3{font-family:'Sora',sans-serif;font-size:.85rem;font-weight:700;margin-bottom:12px;}
+.price-card .amount{
+  font-family:'Sora',sans-serif;font-size:1.5rem;font-weight:800;color:var(--blue);
+}
+.price-card .unit{font-size:.73rem;color:var(--gray);margin-top:4px;}
+
+.prices-info{
+  margin-top:36px;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;
+}
+.info-badge{
+  display:flex;align-items:center;gap:12px;
+  background:#fff;border-radius:var(--r);padding:16px 18px;
+  box-shadow:var(--sh);border-left:4px solid var(--yellow);
+}
+.info-badge i{color:var(--yellow2);font-size:1.2rem;}
+.info-badge p{font-size:.85rem;font-weight:600;}
+
+/* ===================== HOW IT WORKS ===================== */
+#how{padding:90px 0;background:#fff;}
+.steps-wrap{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:24px;position:relative;
+}
+.step-card{text-align:center;padding:28px 18px;}
+.step-num{
+  font-family:'Sora',sans-serif;font-size:2.8rem;font-weight:800;
+  color:var(--border);line-height:1;margin-bottom:10px;
+}
+.step-icon{
+  width:62px;height:62px;
+  background:linear-gradient(135deg,var(--blue),var(--blue2));
+  border-radius:18px;display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:1.4rem;margin:0 auto 16px;
+  box-shadow:0 6px 20px rgba(21,101,192,.3);
+  transition:transform .25s;
+}
+.step-card:hover .step-icon{transform:rotate(-8deg) scale(1.1);}
+.step-card h3{font-family:'Sora',sans-serif;font-size:.87rem;font-weight:700;margin-bottom:7px;}
+.step-card p{font-size:.82rem;color:var(--gray);line-height:1.6;}
+
+/* ===================== REVIEWS ===================== */
+#reviews{padding:90px 0;background:var(--light);}
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;}
+.review-card{
+  background:#fff;border-radius:var(--r);padding:28px 24px;
+  box-shadow:var(--sh);
+  transition:transform .25s,box-shadow .25s;
+  position:relative;
+}
+.review-card:hover{transform:translateY(-6px);box-shadow:var(--sh2);}
+.review-quote{
+  font-size:3rem;color:var(--yellow);font-family:'Sora',sans-serif;
+  line-height:1;margin-bottom:12px;opacity:.5;
+}
+.review-text{
+  font-size:.9rem;color:#374151;line-height:1.7;margin-bottom:20px;
+  font-style:italic;
+}
+.review-author{display:flex;align-items:center;gap:12px;}
+.review-avatar{
+  width:46px;height:46px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Sora',sans-serif;font-size:.95rem;font-weight:700;color:#fff;
+  flex-shrink:0;
+}
+.av1{background:linear-gradient(135deg,#1565C0,#1E88E5);}
+.av2{background:linear-gradient(135deg,#E91E63,#F06292);}
+.av3{background:linear-gradient(135deg,#FF8F00,#FFC107);}
+.review-name{font-weight:700;font-size:.88rem;}
+.review-loc{font-size:.75rem;color:var(--gray);margin-top:2px;}
+.stars{color:#FFC107;font-size:.85rem;margin-bottom:14px;letter-spacing:2px;}
+
+/* ===================== CTA ===================== */
+#cta{
+  padding:80px 20px;
+  background:linear-gradient(135deg,var(--dark),#1565C0);
+  text-align:center;
+}
+#cta h2{
+  font-family:'Sora',sans-serif;
+  font-size:clamp(1.4rem,3vw,2.2rem);font-weight:800;
+  color:#fff;margin-bottom:12px;
+}
+#cta p{color:rgba(255,255,255,.72);margin-bottom:32px;font-size:.97rem;}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+
+/* ===================== CONTACTS ===================== */
+#contacts{padding:90px 0;background:var(--light);}
+.contacts-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;}
+.contact-block h3{font-family:'Sora',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:22px;}
+.contact-items{display:flex;flex-direction:column;gap:14px;}
+.contact-item{
+  display:flex;align-items:center;gap:14px;
+  background:#fff;border-radius:var(--r);padding:15px 18px;
+  box-shadow:var(--sh);transition:transform .2s;
+}
+.contact-item:hover{transform:translateX(4px);}
+.ci-icon{
+  width:42px;height:42px;border-radius:11px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1rem;flex-shrink:0;
+}
+.ci-icon.ph{background:#E3F2FD;color:var(--blue);}
+.ci-icon.tg{background:#E3F2FD;color:#0088cc;}
+.ci-icon.loc{background:#FFF8E1;color:#F57F17;}
+.ci-icon.clk{background:#E8F5E9;color:#388E3C;}
+.contact-item strong{display:block;font-size:.75rem;color:var(--gray);margin-bottom:2px;}
+.contact-item a,.contact-item span{font-weight:700;font-size:.92rem;color:var(--dark);}
+.contact-item a:hover{color:var(--blue);}
+.map-box{background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);height:300px;}
+.map-box iframe{width:100%;height:100%;border:none;}
+
+/* ===================== FOOTER ===================== */
+#footer{background:var(--dark);color:rgba(255,255,255,.65);padding:48px 0 24px;}
+.footer-inner{
+  max-width:1160px;margin:0 auto;padding:0 20px;
+  display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:40px;
+  padding-bottom:30px;border-bottom:1px solid rgba(255,255,255,.08);
+}
+.footer-logo{font-family:'Sora',sans-serif;font-weight:800;font-size:1rem;color:#fff;margin-bottom:10px;}
+.footer-logo span{color:var(--yellow);}
+.footer-desc{font-size:.83rem;line-height:1.7;margin-bottom:18px;}
+.social-links{display:flex;gap:8px;}
+.soc-link{
+  width:36px;height:36px;border-radius:10px;
+  background:rgba(255,255,255,.09);
+  display:flex;align-items:center;justify-content:center;
+  color:rgba(255,255,255,.7);font-size:.95rem;
+  transition:background .2s,color .2s,transform .2s;
+}
+.soc-link:hover{background:var(--blue);color:#fff;transform:translateY(-3px);}
+.footer-col h4{font-family:'Sora',sans-serif;font-size:.83rem;color:#fff;margin-bottom:14px;}
+.footer-col ul{display:flex;flex-direction:column;gap:7px;}
+.footer-col ul li a{font-size:.83rem;transition:color .2s;}
+.footer-col ul li a:hover{color:#fff;}
+.footer-bottom{
+  max-width:1160px;margin:0 auto;padding:20px 20px 0;
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:8px;font-size:.78rem;
+}
+
+/* ===================== FLOATING BUTTONS ===================== */
+.float-wrap{
+  position:fixed;bottom:26px;right:26px;z-index:999;
+  display:flex;flex-direction:column;align-items:flex-end;gap:10px;
+}
+.float-btn{
+  width:52px;height:52px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:1.2rem;text-decoration:none;
+  box-shadow:0 4px 20px rgba(0,0,0,.25);
+  transition:transform .2s;
+}
+.float-btn.tg{
+  background:#0088cc;
+  animation:bounce 2s ease-in-out infinite;
+}
+.float-btn.call{
+  background:var(--blue);
+  animation:bounce 2s ease-in-out .3s infinite;
+}
+.float-btn:hover{transform:scale(1.15)!important;animation:none;}
+
+/* ===================== MODAL ===================== */
+.modal-overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,.5);z-index:2000;
+  align-items:center;justify-content:center;padding:20px;
+}
+.modal-overlay.open{display:flex;}
+.modal-box{
+  background:#fff;border-radius:20px;
+  padding:38px 34px;width:100%;max-width:430px;
+  position:relative;
+  animation:bounceIn .4s ease;
+}
+.modal-close{
+  position:absolute;top:14px;right:14px;
+  background:var(--light);border:none;
+  width:30px;height:30px;border-radius:8px;
+  cursor:pointer;font-size:.9rem;color:var(--gray);
+}
+.modal-title{font-family:'Sora',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:22px;}
+.form-group{margin-bottom:14px;}
+.form-group label{display:block;font-size:.78rem;font-weight:600;margin-bottom:5px;color:var(--gray);}
+.form-group input,.form-group textarea,.form-group select{
+  width:100%;padding:11px 14px;
+  border:2px solid var(--border);border-radius:10px;
+  font-family:'Inter',sans-serif;font-size:.88rem;
+  outline:none;transition:border-color .2s;
+}
+.form-group input:focus,.form-group textarea:focus{border-color:var(--blue);}
+.form-group textarea{resize:vertical;min-height:80px;}
+.form-submit{
+  width:100%;padding:13px;
+  background:var(--blue);color:#fff;border:none;
+  border-radius:10px;font-family:'Sora',sans-serif;
+  font-size:.85rem;font-weight:700;cursor:pointer;
+  transition:background .2s,transform .2s;
+}
+.form-submit:hover{background:var(--dark);transform:translateY(-1px);}
+
+/* ===================== RESPONSIVE ===================== */
+@media(max-width:900px){
+  .hero-inner{grid-template-columns:1fr;text-align:center;}
+  .hero-desc{margin:0 auto 30px;}
+  .hero-btns{justify-content:center;}
+  .hero-stats{justify-content:center;}
+  .contacts-grid{grid-template-columns:1fr;}
+  .footer-inner{grid-template-columns:1fr 1fr;}
+  .counter-inner{grid-template-columns:1fr;}
+}
+@media(max-width:680px){
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+  .nav-phone{display:none;}
+  .hero-card{display:none;}
+  .footer-inner{grid-template-columns:1fr;}
+  .footer-bottom{flex-direction:column;text-align:center;}
+  .trust-sep{display:none;}
+}
+
+[data-lang="uz"] .ru{display:none;}
+[data-lang="ru"] .uz{display:none;}
+</style>
+</head>
+<body>
+
+<!-- =========== INTRO SCREEN =========== -->
+<div id="intro">
+  <div class="intro-logo">Gilam<span>Yuvish</span></div>
+  <div class="intro-sub uz">Toshkentda №1 Gilam Yuvish Xizmati</div>
+  <div class="intro-sub ru">Стирка ковров №1 в Ташкенте</div>
+  <div class="intro-bar-wrap"><div class="intro-bar"></div></div>
+  <div class="intro-pills">
+    <div class="intro-pill"><i class="fa-solid fa-truck-fast"></i> <span class="uz">Bepul dostavka</span><span class="ru">Бесплатно</span></div>
+    <div class="intro-pill"><i class="fa-solid fa-clock"></i> <span class="uz">3–4 kunda</span><span class="ru">3–4 дня</span></div>
+    <div class="intro-pill"><i class="fa-solid fa-shield-halved"></i> <span class="uz">Kafolat</span><span class="ru">Гарантия</span></div>
+  </div>
+  <div class="intro-counter" id="introCount">0</div>
+  <div class="intro-counter-lbl uz">ta gilam yuvdik</div>
+  <div class="intro-counter-lbl ru">ковров уже выстирано</div>
+</div>
+
+
+<!-- =========== HEADER =========== -->
+<header id="header">
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon"><i class="fa-solid fa-broom"></i></div>
+      Gilam<span>Yuvish</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#why" class="uz">Nima uchun biz?</a><a href="#why" class="ru">Почему мы?</a></li>
+      <li><a href="#prices" class="uz">Narxlar</a><a href="#prices" class="ru">Цены</a></li>
+      <li><a href="#how" class="uz">Qanday?</a><a href="#how" class="ru">Как?</a></li>
+      <li><a href="#reviews" class="uz">Fikrlar</a><a href="#reviews" class="ru">Отзывы</a></li>
+      <li><a href="#contacts" class="uz">Aloqa</a><a href="#contacts" class="ru">Контакты</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="tel:+998909190044" class="nav-phone"><i class="fa-solid fa-phone"></i> +998 90 919 00 44</a>
+      <div class="lang-sw">
+        <button class="lang-btn active" id="btn-uz" onclick="setLang('uz')">UZ</button>
+        <button class="lang-btn" id="btn-ru" onclick="setLang('ru')">RU</button>
+      </div>
+      <button class="btn btn-primary" onclick="openModal()" style="padding:9px 18px;font-size:.76rem;">
+        <span class="uz">Buyurtma</span><span class="ru">Заказать</span>
+      </button>
+      <button class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="#why" onclick="toggleMenu()"><span class="uz">Nima uchun biz?</span><span class="ru">Почему мы?</span></a>
+    <a href="#prices" onclick="toggleMenu()"><span class="uz">Narxlar</span><span class="ru">Цены</span></a>
+    <a href="#how" onclick="toggleMenu()"><span class="uz">Qanday?</span><span class="ru">Как?</span></a>
+    <a href="#reviews" onclick="toggleMenu()"><span class="uz">Fikrlar</span><span class="ru">Отзывы</span></a>
+    <a href="#contacts" onclick="toggleMenu()"><span class="uz">Aloqa</span><span class="ru">Контакты</span></a>
+    <a href="tel:+998909190044"><i class="fa-solid fa-phone" style="margin-right:7px"></i>+998 90 919 00 44</a>
+  </div>
+</header>
+
+
+<!-- =========== HERO =========== -->
+<section id="hero">
+  <div class="hero-video-wrap">
+    <!-- Замените src на реальное mp4 видео с процессом мойки ковров -->
+    <video autoplay muted loop playsinline id="heroBg">
+       <source src="video.mp4" type="video/mp4"/> 
+      <!-- Укажите ваше видео: <source src="video.mp4" type="video/mp4"/> -->
+    </video>
+  </div>
+
+  <div class="hero-inner container" style="max-width:1160px;">
+    <div class="hero-text">
+      <div class="hero-badge">
+        <i class="fa-solid fa-star"></i>
+        <span class="uz">Toshkentda №1 gilam yuvish xizmati</span>
+        <span class="ru">Стирка ковров №1 в Ташкенте</span>
+      </div>
+      <h1 class="hero-title">
+        <span class="line1 uz">Tez va Sifatli</span>
+        <span class="line1 ru">Быстрая и Качественная</span>
+        <span class="line2 uz">Gilam Yuvish</span>
+        <span class="line2 ru">Стирка Ковров</span>
+        <span class="line3 uz">Xizmati</span>
+        <span class="line3 ru">в Ташкенте</span>
+      </h1>
+      <p class="hero-desc uz">
+        Toshkent shahar bo'ylab <strong style="color:#FFC107;">BEPUL dostavka</strong>.
+        3–4 kunda tayyor. Minimal zakaz 15m². Professional uskunalar bilan chuqur tozalash.
+      </p>
+      <p class="hero-desc ru">
+        <strong style="color:#FFC107;">БЕСПЛАТНАЯ доставка</strong> по всему Ташкенту.
+        Готово за 3–4 дня. Минимальный заказ 15м². Глубокая чистка профессиональным оборудованием.
+      </p>
+      <div class="hero-btns">
+        <button class="btn btn-accent" onclick="openModal()">
+          <i class="fa-solid fa-paper-plane"></i>
+          <span class="uz">Buyurtma berish</span>
+          <span class="ru">Оставить заявку</span>
+        </button>
+        <a href="tel:+998909190044" class="btn btn-outline">
+          <i class="fa-solid fa-phone"></i> +998 90 919 00 44
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num">3–4</div>
+          <div class="stat-lbl uz">kunda tayyor</div>
+          <div class="stat-lbl ru">дня готово</div>
+        </div>
+        <div>
+          <div class="stat-num">15m²</div>
+          <div class="stat-lbl uz">minimal zakaz</div>
+          <div class="stat-lbl ru">мин. заказ</div>
+        </div>
+        <div>
+          <div class="stat-num uz">Bepul</div>
+          <div class="stat-num ru">Бесплатно</div>
+          <div class="stat-lbl uz">dostavka</div>
+          <div class="stat-lbl ru">доставка</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-card">
+        <p class="hero-card-title uz">💰 Narxlar ro'yxati</p>
+        <p class="hero-card-title ru">💰 Прайс-лист</p>
+        <div class="price-list">
+          <div class="price-item">
+            <span class="price-name uz">Gilam (1m²)</span>
+            <span class="price-name ru">Ковёр (1м²)</span>
+            <span class="price-val">13 000 so'm</span>
+          </div>
+          <div class="price-item">
+            <span class="price-name">Adyol</span>
+            <span class="price-val">120 000 so'm</span>
+          </div>
+          <div class="price-item">
+            <span class="price-name">Körpa</span>
+            <span class="price-val">150 000 so'm</span>
+          </div>
+          <div class="price-item">
+            <span class="price-name uz">Körpacha (1m)</span>
+            <span class="price-name ru">Корпача (1м)</span>
+            <span class="price-val">40 000 so'm</span>
+          </div>
+        </div>
+        <button class="btn btn-accent" onclick="openModal()" style="width:100%;margin-top:18px;justify-content:center;">
+          <i class="fa-solid fa-paper-plane"></i>
+          <span class="uz">Buyurtma berish</span>
+          <span class="ru">Заказать</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- =========== TRUST BAR =========== -->
+<div class="trust-bar">
+  <div class="trust-item"><i class="fa-solid fa-truck-fast"></i> <span class="uz">Bepul dostavka</span><span class="ru">Бесплатная доставка</span></div>
+  <div class="trust-sep"></div>
+  <div class="trust-item"><i class="fa-solid fa-clock"></i> <span class="uz">3–4 kunda tayyor</span><span class="ru">Готово за 3–4 дня</span></div>
+  <div class="trust-sep"></div>
+  <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> <span class="uz">Sifat kafolati</span><span class="ru">Гарантия качества</span></div>
+  <div class="trust-sep"></div>
+  <div class="trust-item"><i class="fa-solid fa-phone"></i> <span class="uz">Har kuni 08:00–21:00</span><span class="ru">Ежедневно 08:00–21:00</span></div>
+  <div class="trust-sep"></div>
+  <div class="trust-item"><i class="fa-solid fa-location-dot"></i> <span>Toshkent</span></div>
+</div>
+
+
+<!-- =========== LIVE COUNTER (УНИКАЛЬНАЯ СЕКЦИЯ) =========== -->
+<section id="live-counter">
+  <div class="counter-particles" id="particles"></div>
+  <div class="counter-inner container">
+
+    <div class="counter-left reveal from-left">
+      <div class="live-badge">
+        <div class="live-dot"></div>
+        <span class="uz">Hozir ham ishlamoqdamiz</span>
+        <span class="ru">Работаем прямо сейчас</span>
+      </div>
+      <h2 class="uz">Biz haqimizda<br>raqamlarda</h2>
+      <h2 class="ru">О нас<br>в цифрах</h2>
+      <p style="margin-top:12px;" class="uz">Har bir raqam — mijozlarimizning ishonchi va gilamlarining tozoligidir.</p>
+      <p style="margin-top:12px;" class="ru">Каждая цифра — это доверие клиентов и чистота их ковров.</p>
+
+      <div class="wave-bars" style="margin-top:24px;">
+        <div class="wave-bar" style="height:20px;animation-delay:0s;"></div>
+        <div class="wave-bar" style="height:14px;animation-delay:.1s;"></div>
+        <div class="wave-bar" style="height:22px;animation-delay:.2s;"></div>
+        <div class="wave-bar" style="height:10px;animation-delay:.3s;"></div>
+        <div class="wave-bar" style="height:18px;animation-delay:.4s;"></div>
+        <div class="wave-bar" style="height:26px;animation-delay:.5s;"></div>
+        <div class="wave-bar" style="height:12px;animation-delay:.6s;"></div>
+        <div class="wave-bar" style="height:20px;animation-delay:.7s;"></div>
+        <div class="wave-bar" style="height:16px;animation-delay:.8s;"></div>
+        <div class="wave-bar" style="height:24px;animation-delay:.9s;"></div>
+      </div>
+    </div>
+
+    <div class="counter-stats reveal from-right">
+      <div class="c-stat">
+        <div class="c-stat-icon y"><i class="fa-solid fa-broom"></i></div>
+        <div>
+          <div class="c-stat-num" data-target="12450" data-suffix="">0</div>
+          <div class="c-stat-lbl uz">ta gilam yuvdik</div>
+          <div class="c-stat-lbl ru">ковров выстирано</div>
+        </div>
+      </div>
+      <div class="c-stat">
+        <div class="c-stat-icon b"><i class="fa-solid fa-face-smile"></i></div>
+        <div>
+          <div class="c-stat-num" data-target="3200" data-suffix="">0</div>
+          <div class="c-stat-lbl uz">mamnun mijoz</div>
+          <div class="c-stat-lbl ru">довольных клиентов</div>
+        </div>
+      </div>
+      <div class="c-stat">
+        <div class="c-stat-icon g"><i class="fa-solid fa-star"></i></div>
+        <div>
+          <div class="c-stat-num" data-target="4" data-suffix=".9 ★">0</div>
+          <div class="c-stat-lbl uz">o'rtacha reyting</div>
+          <div class="c-stat-lbl ru">средний рейтинг</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- =========== WHY US =========== -->
+<section id="why">
+  <div class="container">
+    <h2 class="section-title reveal uz">Nima uchun bizni tanlashadi?</h2>
+    <h2 class="section-title reveal ru">Почему выбирают нас?</h2>
+    <p class="section-sub reveal uz">Sifat, tezlik va ishonchlilik — bizning asosiy tamoyillarimiz</p>
+    <p class="section-sub reveal ru">Качество, скорость и надёжность — наши главные принципы</p>
+    <div class="why-grid">
+      <div class="why-card reveal from-left" style="transition-delay:.0s">
+        <div class="why-icon"><i class="fa-solid fa-truck-fast"></i></div>
+        <h3 class="uz">Bepul Dostavka</h3><h3 class="ru">Бесплатная Доставка</h3>
+        <p class="uz">Toshkent shahar bo'ylab olib ketish va qaytarish — mutlaqo bepul.</p>
+        <p class="ru">Вывоз и доставка по всему Ташкенту — совершенно бесплатно.</p>
+      </div>
+      <div class="why-card reveal" style="transition-delay:.1s">
+        <div class="why-icon"><i class="fa-solid fa-clock"></i></div>
+        <h3 class="uz">3–4 Kunda Tayyor</h3><h3 class="ru">Готово за 3–4 Дня</h3>
+        <p class="uz">Tez va sifatli ish. Gilamingiz belgilangan muddatda qaytariladi.</p>
+        <p class="ru">Быстро и качественно. Ковёр вернётся к вам в срок.</p>
+      </div>
+      <div class="why-card reveal" style="transition-delay:.2s">
+        <div class="why-icon"><i class="fa-solid fa-shield-halved"></i></div>
+        <h3 class="uz">Sifat Kafolati</h3><h3 class="ru">Гарантия Качества</h3>
+        <p class="uz">Professional uskunalar va sertifikatlangan kimyoviy vositalar ishlatiladi.</p>
+        <p class="ru">Используется профессиональное оборудование и сертифицированная химия.</p>
+      </div>
+      <div class="why-card reveal from-right" style="transition-delay:.3s">
+        <div class="why-icon"><i class="fa-solid fa-star"></i></div>
+        <h3 class="uz">Tajribali Jamoa</h3><h3 class="ru">Опытная Команда</h3>
+        <p class="uz">Har xil turdagi gilamlarni tozalashda boy tajribaga ega mutaxassislar.</p>
+        <p class="ru">Специалисты с богатым опытом чистки ковров всех видов.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- =========== PRICES =========== -->
+<section id="prices">
+  <div class="container">
+    <h2 class="section-title reveal uz">Narxlar va Xizmatlar</h2>
+    <h2 class="section-title reveal ru">Цены и Услуги</h2>
+    <p class="section-sub reveal uz">Arzon va adolatli narxlar</p>
+    <p class="section-sub reveal ru">Доступные и справедливые цены</p>
+    <div class="prices-grid">
+      <div class="price-card reveal from-left" style="transition-delay:.0s">
+        <span class="price-card-icon">🧹</span>
+        <h3 class="uz">Gilam Yuvish</h3><h3 class="ru">Стирка Ковра</h3>
+        <div class="amount">13 000 so'm</div>
+        <div class="unit uz">1 m² uchun</div><div class="unit ru">за 1 м²</div>
+      </div>
+      <div class="price-card reveal" style="transition-delay:.1s">
+        <span class="price-card-icon">🛏️</span>
+        <h3 class="uz">Adyol Yuvish</h3><h3 class="ru">Стирка Одеяла</h3>
+        <div class="amount">120 000 so'm</div>
+        <div class="unit uz">1 dona</div><div class="unit ru">1 шт.</div>
+      </div>
+      <div class="price-card reveal" style="transition-delay:.2s">
+        <span class="price-card-icon">🛋️</span>
+        <h3 class="uz">Körpa Yuvish</h3><h3 class="ru">Стирка Корпа</h3>
+        <div class="amount">150 000 so'm</div>
+        <div class="unit uz">1 dona</div><div class="unit ru">1 шт.</div>
+      </div>
+      <div class="price-card reveal from-right" style="transition-delay:.3s">
+        <span class="price-card-icon">🟦</span>
+        <h3 class="uz">Körpacha Yuvish</h3><h3 class="ru">Стирка Корпача</h3>
+        <div class="amount">40 000 so'm</div>
+        <div class="unit uz">1 metr uchun</div><div class="unit ru">за 1 метр</div>
+      </div>
+    </div>
+    <div class="prices-info">
+      <div class="info-badge reveal"><i class="fa-solid fa-hourglass-half"></i><p class="uz">3-4 kunda tayyor qilib beramiz</p><p class="ru">Готово за 3–4 дня</p></div>
+      <div class="info-badge reveal"><i class="fa-solid fa-ruler-combined"></i><p class="uz">Minimal zakaz — 15 m²</p><p class="ru">Минимальный заказ — 15 м²</p></div>
+      <div class="info-badge reveal"><i class="fa-solid fa-truck"></i><p class="uz">Toshkent shahar bo'ylab dostavka bepul</p><p class="ru">Доставка по Ташкенту бесплатно</p></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- =========== HOW IT WORKS =========== -->
+<section id="how">
+  <div class="container">
+    <h2 class="section-title reveal uz">Qanday Ishlaydi?</h2>
+    <h2 class="section-title reveal ru">Как Это Работает?</h2>
+    <p class="section-sub reveal uz">4 oddiy qadam — gilamingiz yangiday bo'ladi</p>
+    <p class="section-sub reveal ru">4 простых шага — и ваш ковёр будет как новый</p>
+    <div class="steps-wrap">
+      <div class="step-card reveal from-left" style="transition-delay:.0s">
+        <div class="step-num">01</div>
+        <div class="step-icon"><i class="fa-solid fa-phone"></i></div>
+        <h3 class="uz">Buyurtma bering</h3><h3 class="ru">Оставьте заявку</h3>
+        <p class="uz">Qo'ng'iroq qiling yoki forma to'ldiring</p>
+        <p class="ru">Позвоните или заполните форму</p>
+      </div>
+      <div class="step-card reveal" style="transition-delay:.15s">
+        <div class="step-num">02</div>
+        <div class="step-icon"><i class="fa-solid fa-truck"></i></div>
+        <h3 class="uz">Biz olib ketamiz</h3><h3 class="ru">Мы заберём</h3>
+        <p class="uz">Manzildan bepul olib ketamiz</p>
+        <p class="ru">Бесплатно заберём с адреса</p>
+      </div>
+      <div class="step-card reveal" style="transition-delay:.3s">
+        <div class="step-num">03</div>
+        <div class="step-icon"><i class="fa-solid fa-soap"></i></div>
+        <h3 class="uz">Chuqur tozalaymiz</h3><h3 class="ru">Глубокая чистка</h3>
+        <p class="uz">Professional uskunalar bilan yuvamiz</p>
+        <p class="ru">Чистим профессиональным оборудованием</p>
+      </div>
+      <div class="step-card reveal from-right" style="transition-delay:.45s">
+        <div class="step-num">04</div>
+        <div class="step-icon"><i class="fa-solid fa-house"></i></div>
+        <h3 class="uz">Qaytarib beramiz</h3><h3 class="ru">Доставим обратно</h3>
+        <p class="uz">3–4 kunda uyingizga yetkazamiz</p>
+        <p class="ru">Вернём домой за 3–4 дня</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- =========== REVIEWS =========== -->
+<section id="reviews">
+  <div class="container">
+    <h2 class="section-title reveal uz">Mijozlar Fikri</h2>
+    <h2 class="section-title reveal ru">Отзывы Клиентов</h2>
+    <p class="section-sub reveal uz">Ular bizga ishonishdi — siz ham ishoning</p>
+    <p class="section-sub reveal ru">Они нам доверяют — доверяйте и вы</p>
+    <div class="reviews-grid">
+
+      <div class="review-card reveal from-left">
+        <div class="stars">★★★★★</div>
+        <div class="review-quote">"</div>
+        <p class="review-text uz">Gilamlarimni olib ketishdi, 3 kunda yangiday qilib qaytarib berishdi. Narxi ham juda qulay. Keyingi safar ham albatta buyurtma beraman!</p>
+        <p class="review-text ru">Забрали ковры, через 3 дня вернули как новые. Цена очень приемлемая. Обязательно закажу снова!</p>
+        <div class="review-author">
+          <div class="review-avatar av1">MN</div>
+          <div>
+            <div class="review-name uz">Malika Nazarova</div>
+            <div class="review-name ru">Малика Назарова</div>
+            <div class="review-loc">Yunusobod, Toshkent</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" style="transition-delay:.15s">
+        <div class="stars">★★★★★</div>
+        <div class="review-quote">"</div>
+        <p class="review-text uz">Xizmat zo'r! Gilamim juda katta edi, lekin muammo bo'lmadi. Bepul olib ketishdi, belgilangan vaqtda qaytarib berishdi. Tavsiya qilaman!</p>
+        <p class="review-text ru">Отличный сервис! Ковёр был очень большой, но проблем не возникло. Бесплатно забрали и вернули вовремя. Рекомендую!</p>
+        <div class="review-author">
+          <div class="review-avatar av2">JS</div>
+          <div>
+            <div class="review-name uz">Jasur Sultonov</div>
+            <div class="review-name ru">Жасур Султонов</div>
+            <div class="review-loc">Chilonzor, Toshkent</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal from-right" style="transition-delay:.3s">
+        <div class="stars">★★★★★</div>
+        <div class="review-quote">"</div>
+        <p class="review-text uz">Adyol va ikkita gilamni yuvishdi. Hamma narsa toza, xushbo'y va yangiday. Narxlari ham qulay, dostavka ham bepul. Juda mamnunman!</p>
+        <p class="review-text ru">Постирали одеяло и два ковра. Всё чистое, ароматное и как новое. Цены доступные, доставка бесплатная. Очень довольна!</p>
+        <div class="review-author">
+          <div class="review-avatar av3">ZH</div>
+          <div>
+            <div class="review-name uz">Zulfiya Holmatova</div>
+            <div class="review-name ru">Зульфия Холматова</div>
+            <div class="review-loc">Mirzo Ulug'bek, Toshkent</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- =========== CTA =========== -->
+<section id="cta">
+  <h2 class="reveal uz">Hoziroq buyurtma bering!</h2>
+  <h2 class="reveal ru">Оставьте заявку прямо сейчас!</h2>
+  <p class="reveal uz">Toshkent shahar bo'ylab bepul olib ketish va yetkazib berish</p>
+  <p class="reveal ru">Бесплатный вывоз и доставка по всему Ташкенту</p>
+  <div class="cta-btns reveal">
+    <button class="btn btn-accent" onclick="openModal()">
+      <i class="fa-solid fa-paper-plane"></i>
+      <span class="uz">Buyurtma berish</span><span class="ru">Оставить заявку</span>
+    </button>
+    <a href="tel:+998909190044" class="btn btn-outline"><i class="fa-solid fa-phone"></i> +998 90 919 00 44</a>
+    <a href="tel:+998991918887" class="btn btn-outline"><i class="fa-solid fa-phone"></i> +998 99 191 88 87</a>
+  </div>
+</section>
+
+
+<!-- =========== CONTACTS =========== -->
+<section id="contacts">
+  <div class="container">
+    <h2 class="section-title reveal uz">Aloqa</h2>
+    <h2 class="section-title reveal ru">Контакты</h2>
+    <p class="section-sub reveal uz">Biz bilan bog'laning</p>
+    <p class="section-sub reveal ru">Свяжитесь с нами</p>
+    <div class="contacts-grid">
+      <div class="contact-block reveal from-left">
+        <h3 class="uz">Bog'lanish usullari</h3>
+        <h3 class="ru">Способы связи</h3>
+        <div class="contact-items">
+          <div class="contact-item">
+            <div class="ci-icon ph"><i class="fa-solid fa-phone"></i></div>
+            <div>
+              <strong class="uz">Telefon raqamlar</strong><strong class="ru">Телефоны</strong>
+              <a href="tel:+998909190044">+998 90 919 00 44</a><br>
+              <a href="tel:+998991918887" style="margin-top:3px;display:block">+998 99 191 88 87</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="ci-icon tg"><i class="fa-brands fa-telegram"></i></div>
+            <div>
+              <strong>Telegram</strong>
+              <a href="https://t.me/gilamyuvish87" target="_blank">@gilamyuvish87</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="ci-icon loc"><i class="fa-solid fa-location-dot"></i></div>
+            <div>
+              <strong class="uz">Manzil</strong><strong class="ru">Адрес</strong>
+              <span class="uz">Toshkent shahar</span><span class="ru">г. Ташкент</span>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="ci-icon clk"><i class="fa-solid fa-clock"></i></div>
+            <div>
+              <strong class="uz">Ish vaqti</strong><strong class="ru">Режим работы</strong>
+              <span class="uz">Har kuni: 08:00 – 21:00</span>
+              <span class="ru">Каждый день: 08:00 – 21:00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal from-right">
+        <h3 class="uz" style="font-family:'Sora',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:22px;">Xarita</h3>
+        <h3 class="ru" style="font-family:'Sora',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:22px;">На карте</h3>
+        <div class="map-box">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d191786.03082789637!2d69.13659!3d41.2994958!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38ae8b0cc379e9c3%3A0xa5a9323b4aa5cb98!2sTashkent!5e0!3m2!1sen!2s!4v1710000000000!5m2!1sen!2s" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- =========== FOOTER =========== -->
+<footer id="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">Gilam<span>Yuvish</span></div>
+      <p class="footer-desc uz">Toshkentda professional gilam yuvish xizmati. Bepul dostavka. Sifat kafolati.</p>
+      <p class="footer-desc ru">Профессиональная стирка ковров в Ташкенте. Бесплатная доставка. Гарантия качества.</p>
+      <div class="social-links">
+        <a href="https://t.me/gilamyuvish87" target="_blank" class="soc-link"><i class="fa-brands fa-telegram"></i></a>
+        <a href="tel:+998909190044" class="soc-link"><i class="fa-solid fa-phone"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4 class="uz">Xizmatlar</h4><h4 class="ru">Услуги</h4>
+      <ul>
+        <li><a href="#prices" class="uz">Gilam yuvish</a><a href="#prices" class="ru">Стирка ковров</a></li>
+        <li><a href="#prices" class="uz">Adyol yuvish</a><a href="#prices" class="ru">Стирка одеяла</a></li>
+        <li><a href="#prices" class="uz">Körpa yuvish</a><a href="#prices" class="ru">Стирка корпа</a></li>
+        <li><a href="#prices" class="uz">Körpacha yuvish</a><a href="#prices" class="ru">Стирка корпача</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4 class="uz">Aloqa</h4><h4 class="ru">Контакты</h4>
+      <ul>
+        <li><a href="tel:+998909190044">+998 90 919 00 44</a></li>
+        <li><a href="tel:+998991918887">+998 99 191 88 87</a></li>
+        <li><a href="https://t.me/gilamyuvish87" target="_blank">@gilamyuvish87</a></li>
+        <li><a href="#prices" class="uz">Minimal zakaz: 15m²</a><a href="#prices" class="ru">Мин. заказ: 15м²</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 GilamYuvish Toshkent. <span class="uz">Barcha huquqlar himoyalangan.</span><span class="ru">Все права защищены.</span></span>
+    <span class="uz">Toshkent shahar bo'ylab bepul dostavka</span>
+    <span class="ru">Бесплатная доставка по Ташкенту</span>
+  </div>
+</footer>
+
+
+<!-- =========== FLOATING BUTTONS =========== -->
+<div class="float-wrap">
+  <a href="https://t.me/gilamyuvish87" target="_blank" class="float-btn tg" title="Telegram">
+    <i class="fa-brands fa-telegram"></i>
+  </a>
+  <a href="tel:+998909190044" class="float-btn call" title="Call">
+    <i class="fa-solid fa-phone"></i>
+  </a>
+</div>
+
+
+<!-- =========== MODAL =========== -->
+<div class="modal-overlay" id="modal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h3 class="modal-title uz">Buyurtma berish</h3>
+    <h3 class="modal-title ru">Оставить заявку</h3>
+    <div class="form-group">
+      <label class="uz">Ismingiz</label><label class="ru">Ваше имя</label>
+      <input type="text" id="form-name" placeholder="Ism / Имя"/>
+    </div>
+    <div class="form-group">
+      <label class="uz">Telefon raqam</label><label class="ru">Номер телефона</label>
+      <input type="tel" id="form-phone" placeholder="+998 __ ___ __ __"/>
+    </div>
+    <div class="form-group">
+      <label class="uz">Xizmat turi</label><label class="ru">Вид услуги</label>
+      <select id="form-service">
+        <option value="" disabled selected>Tanlang / Выберите...</option>
+        <option value="Gilam yuvish">Gilam yuvish / Стирка ковра</option>
+        <option value="Adyol">Adyol / Одеяло</option>
+        <option value="Körpa">Körpa / Корпа</option>
+        <option value="Körpacha">Körpacha / Корпача</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="uz">Qo'shimcha izoh</label><label class="ru">Комментарий</label>
+      <textarea id="form-note" placeholder="..."></textarea>
+    </div>
+    <button class="form-submit" onclick="submitForm()">
+      <span class="uz">Yuborish</span><span class="ru">Отправить</span>
+    </button>
+  </div>
+</div>
+
+
+<!-- =========== SCRIPTS =========== -->
+<script>
+/* ---- INTRO COUNTER ANIMATION ---- */
+function animateIntroCounter(){
+  const el = document.getElementById('introCount');
+  const target = 12450;
+  const duration = 1800;
+  const start = Date.now();
+  function update(){
+    const elapsed = Date.now() - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.floor(ease * target).toLocaleString();
+    if(progress < 1) requestAnimationFrame(update);
+    else el.textContent = target.toLocaleString();
+  }
+  setTimeout(update, 2400);
+}
+animateIntroCounter();
+
+/* ---- HIDE INTRO ---- */
+setTimeout(() => {
+  document.getElementById('intro').classList.add('hide');
+  setTimeout(() => {
+    const intro = document.getElementById('intro');
+    if(intro) intro.style.display = 'none';
+  }, 800);
+}, 3400);
+
+/* ---- LANGUAGE ---- */
+function setLang(lang){
+  document.documentElement.setAttribute('data-lang', lang);
+  document.getElementById('btn-uz').classList.toggle('active', lang === 'uz');
+  document.getElementById('btn-ru').classList.toggle('active', lang === 'ru');
+  const t = document.querySelector('title');
+  if(t) t.textContent = lang === 'uz'
+    ? 'GilamYuvish Toshkent | Tez va Sifatli'
+    : 'Стирка Ковров Ташкент | Быстро и Качественно';
+}
+
+/* ---- MOBILE MENU ---- */
+function toggleMenu(){
+  document.getElementById('mobile-nav').classList.toggle('open');
+}
+
+/* ---- MODAL ---- */
+function openModal(){
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(){
+  document.getElementById('modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('modal').addEventListener('click', function(e){
+  if(e.target === this) closeModal();
+});
+
+/* ---- FORM SUBMIT ---- */
+function submitForm(){
+  const name    = document.getElementById('form-name').value.trim();
+  const phone   = document.getElementById('form-phone').value.trim();
+  const service = document.getElementById('form-service').value;
+  const note    = document.getElementById('form-note').value.trim();
+  if(!phone){ alert('Telefon raqam kiriting / Введите номер телефона'); return; }
+  const msg = `🧹 Yangi buyurtma!\n👤 Ism: ${name||'—'}\n📞 Tel: ${phone}\n🛍 Xizmat: ${service||'—'}\n📝 Izoh: ${note||'—'}`;
+  window.open(`https://t.me/gilamyuvish87?text=${encodeURIComponent(msg)}`, '_blank');
+  closeModal();
+}
+
+/* ---- SCROLL REVEAL ---- */
+const revealEls = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+revealEls.forEach(el => revealObserver.observe(el));
+
+/* ---- COUNTER ANIMATION (scroll-triggered) ---- */
+const counterEls = document.querySelectorAll('.c-stat-num[data-target]');
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting && !e.target.dataset.done){
+      e.target.dataset.done = '1';
+      const target = parseInt(e.target.dataset.target);
+      const suffix = e.target.dataset.suffix || '';
+      const duration = 1600;
+      const start = Date.now();
+      function tick(){
+        const elapsed = Date.now() - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const ease = 1 - Math.pow(1 - progress, 3);
+        const val = Math.floor(ease * target);
+        e.target.textContent = val.toLocaleString() + suffix;
+        if(progress < 1) requestAnimationFrame(tick);
+        else e.target.textContent = target.toLocaleString() + suffix;
+      }
+      tick();
+    }
+  });
+}, { threshold: 0.3 });
+counterEls.forEach(el => counterObserver.observe(el));
+
+/* ---- PARTICLES in live-counter section ---- */
+const particleContainer = document.getElementById('particles');
+function spawnParticle(){
+  if(!particleContainer) return;
+  const p = document.createElement('div');
+  p.className = 'particle';
+  p.style.left = Math.random()*100 + '%';
+  p.style.top = Math.random()*100 + '%';
+  const size = 3 + Math.random()*5 + 'px';
+  p.style.width = size; p.style.height = size;
+  p.style.opacity = '0';
+  particleContainer.appendChild(p);
+  const duration = 2000 + Math.random()*2000;
+  let startTime = null;
+  function animate(ts){
+    if(!startTime) startTime = ts;
+    const progress = (ts - startTime) / duration;
+    if(progress < 0.3){
+      p.style.opacity = (progress / 0.3) * 0.8;
+    } else if(progress < 0.7){
+      p.style.opacity = 0.8;
+      p.style.transform = `translateY(-${(progress-0.3)*100}px)`;
+    } else {
+      p.style.opacity = (1 - (progress - 0.7)/0.3) * 0.8;
+      p.style.transform = `translateY(-${0.4*100 + (progress-0.7)*50}px)`;
+    }
+    if(progress < 1) requestAnimationFrame(animate);
+    else p.remove();
+  }
+  requestAnimationFrame(animate);
+}
+setInterval(spawnParticle, 220);
+
+/* ---- STICKY HEADER SHADOW ---- */
+window.addEventListener('scroll', () => {
+  const h = document.getElementById('header');
+  h.style.boxShadow = window.scrollY > 40
+    ? '0 4px 24px rgba(0,0,0,.12)'
+    : '0 2px 20px rgba(0,0,0,.06)';
+});
+</script>
+</body>
+</html>
